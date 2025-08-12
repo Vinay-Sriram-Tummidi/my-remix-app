@@ -11,7 +11,7 @@ export default function Index()
 ">A Better Way for Storing Notes</h1>
    <h3 className="text-2xl">Try Out the Beta !</h3>
    <div>
-  <Link className="bg-[#4B5945] text-white p-2 rounded-lg" to={"/notes"}  >Try Notes</Link>
+  <Link className="bg-[#4B5945] text-white p-2 text-sm rounded-lg" to={"/notes"}  >Try Notes</Link>
    </div>
    <img src={writing2} className="w-full h-auto"></img>
    </div>

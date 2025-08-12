@@ -44,6 +44,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+
+
 export default function App() {
   return <Outlet />;
+}
+
+
+export function ErrorBoundary({ error }: { error: Error })
+{
+  return (
+    <>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        <Links />
+      </head>
+    
+      <body>
+        <main>
+          <h1>An Error Occured !!!</h1>
+          <p>{error?.message}</p>
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </>
+  )
+ 
 }

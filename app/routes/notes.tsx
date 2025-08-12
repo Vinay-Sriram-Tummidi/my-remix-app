@@ -33,6 +33,11 @@ export async function action({request})
 
     //Validation
 
+    if (noteData.title.trim().length <5)
+    {
+    return {message:"Invalid Title length"}
+    } 
+
     const existingNotes = await getStoredNotes();
 
     noteData.id=new Date().toISOString();
