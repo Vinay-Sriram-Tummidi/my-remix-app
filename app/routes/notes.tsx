@@ -3,6 +3,7 @@ import { Form, redirect, useLoaderData } from "@remix-run/react";
 import { getStoredNotes, addNote, editNote, deleteNote } from "../data/notes";
 import NewNotes from "~/components/NewNotes";
 import NoteList from "../components/NoteList"
+import MainNavigation from "~/components/MainNavigation";
 
 // Loader → fetch notes
 export async function loader({}: LoaderFunctionArgs) {
@@ -37,6 +38,7 @@ export default function NotesRoute() {
   const notes = useLoaderData<typeof loader>();
   return (
     <div>
+    <MainNavigation notes={notes}/>
     <NewNotes/>
     <NoteList notes={notes}/>
     </div>

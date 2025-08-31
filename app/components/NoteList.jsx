@@ -6,12 +6,8 @@ import {Form, useFetcher} from "@remix-run/react"
 
 
 export default function NoteList({notes})
-
-
 {
-    const fetcher =useFetcher();
-    
-    return(
+      return(
         <>
         <ul className="flex mt-6 items-center justify-center">
         {notes.map((note,index)=>
@@ -20,12 +16,12 @@ export default function NoteList({notes})
                 <li key={note.id}>
                 <ul>
                     <li>
-             <fetcher.Form method="post" style={{ display: "inline" }}>
+             <Form method="post" style={{ display: "inline" }}>
                         <input type="hidden" name="id" value={note.id} />
                   <button type="submit" name="action" value="delete"><img src={deleteIcon}  className="w-[60px] h-[30px]"/></button>
                 <button type="submit" name="action" value="edit"><img src={edit}   className="w-[60px] h-[30px]"/></button>
-            </fetcher.Form>
-                    </li>
+            </Form>
+            </li>
               <hr/>
                 <li> <h1 className="text-lg">{note.title}</h1></li>
                 <li><p className="text-sm">{note.content}</p></li>
