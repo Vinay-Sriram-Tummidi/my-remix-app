@@ -1,21 +1,31 @@
 
+import edit from "../assets/edit.svg";
+import deleteIcon from "../assets/deleteIcon.svg";
+import { getStoredNotes } from "../data/notes";
+import {Form, useFetcher} from "@remix-run/react"
+
 
 export default function NoteList({notes})
+
+
 {
+    const fetcher =useFetcher();
+    
     return(
         <>
         <ul className="flex mt-6 items-center justify-center">
         {notes.map((note,index)=>
         (
-            <div className="flex bg-[#91AC8F] flex-wrap gap-2 mx-4  w-[195px] p-4 border rounded-xl border-[#4B5945]">
+            <div className="flex bg-[#91AC8F] flex-wrap flex-row gap-1 mx-4 p-4 border rounded-xl border-[#4B5945]">
                 <li key={note.id}>
                 <ul>
-                    <div className="flex text-sm">
-                    <li>#{index + 1}</li>{" "}
-                    <li><time dateTime={note.id}>
-                    {new Date(note.id).toLocaleDateString('en-US',{day:"numeric",month:"short",year:"numeric"})}
-                    </time></li>
-              </div>
+                    <li>
+             <fetcher.Form method="post" style={{ display: "inline" }}>
+                        <input type="hidden" name="id" value={note.id} />
+                  <button type="submit" name="action" value="delete"><img src={deleteIcon}  className="w-[60px] h-[30px]"/></button>
+                <button type="submit" name="action" value="edit"><img src={edit}   className="w-[60px] h-[30px]"/></button>
+            </fetcher.Form>
+                    </li>
               <hr/>
                 <li> <h1 className="text-lg">{note.title}</h1></li>
                 <li><p className="text-sm">{note.content}</p></li>

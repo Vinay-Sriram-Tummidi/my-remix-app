@@ -1,52 +1,44 @@
-import { redirect, useLoaderData } from "@remix-run/react";
+import { json, type LoaderFunctionArgs, type ActionFunctionArgs } from "@remix-run/node";
+import { Form, redirect, useLoaderData } from "@remix-run/react";
+import { getStoredNotes, addNote, editNote, deleteNote } from "../data/notes";
 import NewNotes from "~/components/NewNotes";
-import { getStoredNotes, storeNotes } from "~/data/notes";
-import NoteList from "~/components/NoteList"
+import NoteList from "../components/NoteList"
 
-export default function Notes()
-
-
-{
-    const notes=useLoaderData();
-    return (
-<>
-        <NewNotes/>
-        <NoteList notes={notes}/>
-
-</>
-    );
-
+// Loader → fetch notes
+export async function loader({}: LoaderFunctionArgs) {
+  const notes = await getStoredNotes();
+  return json(notes);
 }
 
-export function loader()
-{
-    const notes=getStoredNotes();
+// Action → handle add/edit/delete
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+    const action = formData.get("action"); // comes from button clicked
 
-    return notes;
+  if (action === "add") {
+    (await addNote({ title: formData.get("title"), content: formData.get("content") }));
+ return json({ success: true });
+  }
+
+  if (action === "edit") {
+    (await editNote(formData.get("id"), { title: formData.get("title"), content: formData.get("content") }));
+     return json({ success: true });
+  }
+
+  if (action === "delete") {
+    await deleteNote(formData.get("id"));
+ return json({ success: true });
+  }
+
+  return json({ error: "Invalid action" }, { status: 400 });
 }
 
-export async function action({request})
-{
-    const formData=await request.formData();
-
-    const noteData= Object.fromEntries(formData);
-
-    //Validation
-
-    if (noteData.title.trim().length <5)
-    {
-    return {message:"Invalid Title length"}
-    } 
-
-    const existingNotes = await getStoredNotes();
-
-    noteData.id=new Date().toISOString();
-
-    const updatedNotes =existingNotes.concat(noteData);
-
-    await storeNotes(updatedNotes);
-
-    return redirect("/notes");
+export default function NotesRoute() {
+  const notes = useLoaderData<typeof loader>();
+  return (
+    <div>
+    <NewNotes/>
+    <NoteList notes={notes}/>
+    </div>
+  );
 }
-
- 

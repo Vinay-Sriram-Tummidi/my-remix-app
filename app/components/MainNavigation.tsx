@@ -8,8 +8,6 @@ export default function()
 <NavLink to="/" className="text-sm text-white"> Home</NavLink>
 <NavLink to="/notes" className="text-sm text-white"> My Notes</NavLink>
 <NavLink to="/notes" className="text-sm text-white"> Login</NavLink>
-
-
         </div>
 
     );

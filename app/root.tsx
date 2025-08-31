@@ -7,10 +7,11 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
-import "./tailwind.css";
+import tailwind from "./tailwind.css"; // ✅ import CSS properly
 import MainNavigation from "./components/MainNavigation";
 
 export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: tailwind }, // ✅ add CSS to <head>
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -32,10 +33,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <header>
-        <MainNavigation/>
-      </header>
       <body>
+        <header>
+          <MainNavigation />
+        </header>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -44,33 +45,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-
-
 export default function App() {
   return <Outlet />;
 }
 
-
-export function ErrorBoundary({ error }: { error: Error })
-{
+export function ErrorBoundary({ error }: { error: Error }) {
   return (
-    <>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-    
       <body>
         <main>
-          <h1>An Error Occured !!!</h1>
+          <h1>You are Missing Something Vinay !!!</h1>
           <p>{error?.message}</p>
         </main>
         <ScrollRestoration />
         <Scripts />
       </body>
-    </>
-  )
- 
+    </html>
+  );
 }
