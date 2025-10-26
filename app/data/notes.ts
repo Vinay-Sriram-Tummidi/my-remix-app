@@ -1,20 +1,22 @@
-import fs from 'fs/promises';
+import fs from "fs/promises";
 
 export async function getStoredNotes() {
-  const rawFileContent = await fs.readFile('noteStore.json', { encoding: 'utf-8' });
+  const rawFileContent = await fs.readFile("noteStore.json", {
+    encoding: "utf-8",
+  });
   const data = JSON.parse(rawFileContent);
   const storedNotes = data.notes ?? [];
   return storedNotes;
 }
 
 export function storeNotes(notes) {
-  return fs.writeFile('noteStore.json', JSON.stringify({ notes: notes || [] }));
+  return fs.writeFile("noteStore.json", JSON.stringify({ notes: notes || [] }));
 }
 
 // Add a new note (with id)
 export async function addNote(note) {
   const notes = await getStoredNotes();
-  const newNote = { id: Date.now().toString(), ...note }; 
+  const newNote = { id: Date.now().toString(), ...note };
   notes.push(newNote);
   await storeNotes(notes);
   return newNote;
