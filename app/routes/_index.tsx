@@ -13,6 +13,13 @@ export default function Index() {
         >
           Try Notes
         </Link>
+
+        <Link
+          className="bg-[#4B5945] text-white p-2 text-sm rounded-lg"
+          to={"/posts"}
+        >
+          Read Budget Blogs
+        </Link>
       </div>
       <div>
         <img src={calender} className="w-[400px] h-[400px]"></img>
