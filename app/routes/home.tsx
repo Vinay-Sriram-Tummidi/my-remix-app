@@ -6,7 +6,7 @@ import pickles from "../assets/Pickle.jpg";
   const Home = () => {
     return (
         <>
-            <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
         <section className="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <p className="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
