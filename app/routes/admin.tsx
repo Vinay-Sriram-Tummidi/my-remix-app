@@ -1,4 +1,9 @@
-import { json, redirect, type ActionFunctionArgs, type LoaderFunctionArgs } from "@remix-run/node";
+import {
+  json,
+  redirect,
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+} from "@remix-run/node";
 import { useLoaderData, Form } from "@remix-run/react";
 import { prisma } from "../utils/db.server";
 
@@ -79,11 +84,28 @@ export default function Admin() {
         <Form method="post" className="bg-white p-6 rounded-lg shadow-sm mb-6">
           <h2 className="text-lg font-semibold mb-3">Add Product</h2>
           <div className="grid grid-cols-2 gap-4">
-            <input name="name" placeholder="Name" className="border p-2 rounded" />
-            <input name="price" placeholder="Price" type="number" className="border p-2 rounded" />
+            <input
+              name="name"
+              placeholder="Name"
+              className="border p-2 rounded"
+            />
+            <input
+              name="price"
+              placeholder="Price"
+              type="number"
+              className="border p-2 rounded"
+            />
           </div>
-          <textarea name="description" placeholder="Description" className="border p-2 rounded w-full mt-2" />
-          <input name="image" placeholder="Image URL" className="border p-2 rounded w-full mt-2" />
+          <textarea
+            name="description"
+            placeholder="Description"
+            className="border p-2 rounded w-full mt-2"
+          />
+          <input
+            name="image"
+            placeholder="Image URL"
+            className="border p-2 rounded w-full mt-2"
+          />
           <label className="flex items-center gap-2 mt-2">
             <input name="inStock" type="checkbox" defaultChecked /> In Stock
           </label>

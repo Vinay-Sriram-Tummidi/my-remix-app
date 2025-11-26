@@ -1,12 +1,14 @@
-import { Link } from '@remix-run/react';
-import { useState } from 'react';
+import { Link } from "@remix-run/react";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../common/GlobalContext";
 
-export default function NavBar()  {
+export default function NavBar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const {state,dispatch}=useContext(GlobalContext);
 
-    const[mobileOpen,setMobileOpen]=useState(false);
-    return (
-        <>
-           <header className="w-full bg-white/60 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+  return (
+    <>
+      <header className="w-full bg-white/60 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-[#4B5945] w-10 h-10 flex items-center justify-center text-white font-bold">
@@ -18,10 +20,16 @@ export default function NavBar()  {
           </div>
 
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/products" className="text-sm text-gray-700 hover:text-gray-900">
+            <Link
+              to="/products"
+              className="text-sm text-gray-700 hover:text-gray-900"
+            >
               Products
             </Link>
-            <Link to="/recipes" className="text-sm text-gray-700 hover:text-gray-900">
+            <Link
+              to="/recipes"
+              className="text-sm text-gray-700 hover:text-gray-900"
+            >
               Recipes
             </Link>
             <a
@@ -36,7 +44,20 @@ export default function NavBar()  {
             >
               Shop Pickles
             </Link>
+
+
+            <h2>Hello ,{state.user}</h2>
           </div>
+          
+          <button onClick={()=>dispatch({type:"SET_USER" ,payload: "vinay"})}>
+            LogIn
+          </button>
+
+            <button onClick={()=>dispatch({type:"LOGOUT"})}>
+            Logout
+          </button>
+
+          
 
           <button
             className="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100"
@@ -46,7 +67,11 @@ export default function NavBar()  {
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
-                d={mobileOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                d={
+                  mobileOpen
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M4 6h16M4 12h16M4 18h16"
+                }
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -59,13 +84,25 @@ export default function NavBar()  {
         {mobileOpen && (
           <div className="md:hidden bg-white shadow-sm border-t">
             <div className="px-6 py-4 flex flex-col gap-3">
-              <Link to="/products" onClick={() => setMobileOpen(false)} className="text-gray-700">
+              <Link
+                to="/products"
+                onClick={() => setMobileOpen(false)}
+                className="text-gray-700"
+              >
                 Products
               </Link>
-              <Link to="/recipes" onClick={() => setMobileOpen(false)} className="text-gray-700">
+              <Link
+                to="/recipes"
+                onClick={() => setMobileOpen(false)}
+                className="text-gray-700"
+              >
                 Recipes
               </Link>
-              <a href="#features" onClick={() => setMobileOpen(false)} className="text-gray-700">
+              <a
+                href="#features"
+                onClick={() => setMobileOpen(false)}
+                className="text-gray-700"
+              >
                 Why Pickles
               </a>
               <Link
@@ -79,8 +116,6 @@ export default function NavBar()  {
           </div>
         )}
       </header>
-        </>
-       
-    );
+    </>
+  );
 }
-
